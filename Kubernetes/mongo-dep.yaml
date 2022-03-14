@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-dep
+spec:
+  selector:
+    matchLabels:
+      app: mongo-dep
+  template:
+    metadata:
+      labels:
+        app: mongo-dep
+    spec:
+      containers:
+        - name: mongo-dep
+          image: mongo:4.0.10
+          volumeMounts:
+            - name: mypv
+              mountPath: "/data/mypv/"
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 7701
+      volumes:
+        - name: mypv
+          persistentVolumeClaim:
+            claimName: mypvc

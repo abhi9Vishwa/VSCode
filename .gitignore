@@ -16,3 +16,20 @@ Flutter/**/analysis_options.yaml
 Flutter/**/*.iml
 Flutter/**/pubspec.lock
 
+Flutter/i_a_rich/lib/rand.dart
+Flutter/i_a_rich/assets/
+Flutter/quizzler/test/widget_test.dart
+Flutter/clima_weather/images/city_background.jpg
+Flutter/clima_weather/fonts/SpartanMB-Black.otf
+Flutter/clima_weather/images/location_background.jpg
+Flutter/destini/images/background.png
+Flutter/flash_chat/images/logo.png
+WebDev/TinDog-Start-master/images/
+WebDev/Dicee Challenge - Starting Files/images/
+WebDev/Drum Kit Starting Files/images/
+WebDev/Drum Kit Starting Files/sounds/
+WebDev/Calculator/package-lock.json
+WebDev/**/node_modules/
+*.mp3
+WebDev/Newsletter-Signup/public/dp.jpg
+*.DS_Store

@@ -5,6 +5,7 @@ GoLang/bin/gopls.exe
 Udghosh_Web-main/
 Udghosh_Web-main.zip
 *.exe
+<<<<<<< HEAD
 Flutter/**/android
 Flutter/**/ios
 Flutter/**/windows
@@ -33,3 +34,5 @@ WebDev/**/node_modules/
 *.mp3
 WebDev/Newsletter-Signup/public/dp.jpg
 *.DS_Store
+=======
+>>>>>>> origin

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GitHub-auto-push-for-Windows
 
 When writing documents (such as your thesis or a paper), it's a nice idea to have different versions of that document. With versioning, you can look up past versions and copy out whatever has been lost in newer versions. 
@@ -35,3 +36,7 @@ It will by default, `push` every 300 seconds (5 minutes). It will `pull` any cha
 It will push any files in your `Writings` directory, so make sure that you know what is being pushed.
 
 Change as required.
+=======
+This is a auto syncing repository.
+It act as both a backup and a versioning system.
+>>>>>>> origin

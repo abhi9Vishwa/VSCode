@@ -5,7 +5,6 @@ GoLang/bin/gopls.exe
 Udghosh_Web-main/
 Udghosh_Web-main.zip
 *.exe
-<<<<<<< HEAD
 Flutter/**/android
 Flutter/**/ios
 Flutter/**/windows
@@ -16,7 +15,6 @@ Flutter/**/.packages
 Flutter/**/analysis_options.yaml
 Flutter/**/*.iml
 Flutter/**/pubspec.lock
-
 Flutter/i_a_rich/lib/rand.dart
 Flutter/i_a_rich/assets/
 Flutter/quizzler/test/widget_test.dart
@@ -34,5 +32,5 @@ WebDev/**/node_modules/
 *.mp3
 WebDev/Newsletter-Signup/public/dp.jpg
 *.DS_Store
-=======
->>>>>>> origin
+*.env
+WebDev/React/

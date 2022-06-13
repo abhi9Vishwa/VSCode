@@ -8,6 +8,15 @@
 		"files.autoSave": "afterDelay",
 		"files.exclude": {
 			"**/.exe": true
+		},
+		"files.associations": {
+			"cmath": "cpp",
+			"ostream": "cpp",
+			"iostream": "cpp"
 		}
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": []
 	}
 }

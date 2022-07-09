@@ -12,7 +12,8 @@
 		"files.associations": {
 			"cmath": "cpp",
 			"ostream": "cpp",
-			"iostream": "cpp"
+			"iostream": "cpp",
+			"random": "cpp"
 		}
 	},
 	"launch": {

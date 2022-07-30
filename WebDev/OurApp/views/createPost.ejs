@@ -1,0 +1,14 @@
+<%- include("./partials/header.ejs") %>
+
+    <form action="/compose" method="POST" class="container py-lg-5">
+        <div class="mb-3">
+            <label for="postTitle" class="form-label">Title</label>
+            <input required name="postTitle" class="form-control" id="postTitle" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="postBody" class="form-label">Body</label>
+            <textarea name="postBody" rows="8" class="form-control" id="postBody"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Post</button>
+    </form>

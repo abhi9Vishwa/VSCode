@@ -14,6 +14,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 const port = 3000;
 
 connectToMongo();
+
+
 app.get('/', (req, res) => {
     res.send('Return ');
 });

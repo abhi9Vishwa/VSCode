@@ -7,14 +7,15 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const auth = require("./middleware/auth");
 const JWT_SECRET = "There we are again";
+const cors = require("cors");
 
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-const port = 3000;
+const port = 5000;
 
 connectToMongo();
-
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Return ');
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.get('/query/:name/', (req, res) => {
     res.send(req.params.name);
+    console.log(req.params.name);
 });
 app.get('/query/', (req, res) => {
     const nameQ = req.query.namequery;

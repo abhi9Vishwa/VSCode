@@ -1,7 +1,8 @@
 
 var mongoose = require('mongoose');
 //Set up default mongoose connection
-var mongoDB = 'mongodb://127.0.0.1:27017/serverauth';
+// var uri = 'mongodb://127.0.0.1:27017/mongodb+srv://admin:<admin1>@cluster0.kxeypj0.mongodb.net/?retryWrites=true&w=majority/mydatabase'
+var mongoDB = 'mongodb+srv://admin:admin1@cluster0.kxeypj0.mongodb.net/?retryWrites=true&w=majority';
 const connectToMongo = () => {
     mongoose.connect(mongoDB, { useNewUrlParser: true }, () => {
         console.log('Connected to MongoDB');

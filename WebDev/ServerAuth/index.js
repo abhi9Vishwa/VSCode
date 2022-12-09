@@ -1,6 +1,7 @@
 const express = require("express");
 const connectToMongo = require("./models/profiles");
 const schema = require("./models/profileSchema");
+const postSch = require("./models/postSchema");
 const app = express();
 const router = express.Router();
 const bodyParser = require("body-parser");
@@ -8,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("./middleware/auth");
 const JWT_SECRET = "There we are again";
 const cors = require("cors");
-
+var ObjectId = require('mongodb').ObjectId;
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -18,140 +19,125 @@ connectToMongo();
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send('Return ');
+    res.send();
 });
 
 app.get('/query/:name/', (req, res) => {
     res.send(req.params.name);
     console.log(req.params.name);
 });
-app.get('/query/', (req, res) => {
-    const nameQ = req.query.namequery;
-    res.send("hello " + nameQ);
-});
+
 
 //adduser
-app.post('/createUser', jsonParser, (req, res) => {
+app.post('/createU', jsonParser, (req, res) => {
     // res.send('Hello World!');
     console.log('Hello World!');
     console.log(req.body);
     const user1 = new schema({
-        name: req.body.name,
+        email: req.body.email,
         password: req.body.password,
-        username: req.body.username,
-        college: req.body.college,
-        graduationYear: req.body.graduationYear
     })
     user1.save((err, obj) => {
         if (!err) {
             res.send("saved");
 
         } else {
+            console.log(err);
             res.send("User already exist");
         }
     });
-    const { username, name } = req.body;
+    const { email } = req.body;
 
-    const token = jwt.sign({ username, name }, JWT_SECRET, { expiresIn: "22h" });
+    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "22h" });
     user1.token = token;
-    console.log(token);
+    // console.log(token);
+});
+app.post('/createPost', jsonParser, (req, res) => {
+    // res.send('Hello World!');
+    console.log('Hello World!');
+    console.log(req.body);
+    const user1 = new postSch({
+        // email: req.body.email,
+        title: req.body.title,
+        desc: req.body.desc,
+
+    })
+    user1.save((err, obj) => {
+        if (!err) {
+            res.send("saved");
+
+        } else {
+            console.log(err);
+            // res.send("User already exist");
+        }
+    });
+    // console.log(token);
 });
 
 //login
 app.post('/login', jsonParser, async (req, res) => {
     console.log(req.body);
-    const usernameIn = req.body.username;
+    const emailIn = req.body.email;
     const passwordIn = req.body.password;
 
 
-    if (!(usernameIn && passwordIn)) {
+    if (!(emailIn && passwordIn)) {
         res.status(400).send("All input is required");
     }
 
-    const user = await schema.findOne({ username: usernameIn });
+    const user = await schema.findOne({ email: emailIn });
     console.log(user);
     if (user && (passwordIn === user.password)) {
-        const token = jwt.sign({ usernameIn }, JWT_SECRET, { expiresIn: "22h" });
+        const token = jwt.sign({ emailIn }, JWT_SECRET, { expiresIn: "22h" });
         user.token = token;
         res.json(user);
         console.log(token);
     } else {
-        res.send("invalid credentials");
+        res.status(300).send("invalid credentials");
     }
 });
 
-app.post("/welcome", auth, (req, res) => {
-    res.status(200).send("Welcome 🙌 ");
-  });
 
-//Get all user creds
-app.get('/getUser', (req, res) => {
-    schema.find({})
-        .then((userlist) => {
-            res.send(userlist);
+
+//Get all posts
+app.get('/getPost', (req, res) => {
+    postSch.find({})
+        .then((postlist) => {
+            res.send(postlist);
         });
 });
 
-//delete user by matching password and username
-app.delete('/deleteUser/', (req, res) => {
-    const usernameQuery = req.query.username;
-    const passwordQuery = req.query.password;
+//delete post by matching id
+app.post('/deletePost', jsonParser, (req, res) => {
+    const idQ = req.body.id;
+    var oid = new ObjectId(idQ);
+    console.log(req.body);
     let check = true;
-    schema.findOne({ username: usernameQuery }, (err, obj) => {
-        // res.send(obj);
-        if (obj == null) {
-            res.send("User doesnot exist");
-            check = false;
-            // console.log(err);
-            // console.log(obj);
-        } else {
-            if (check && passwordQuery === obj.password) {
-                schema.findOneAndDelete({ username: usernameQuery }, (error, obj) => {
-                    if (!error) {
-                        res.send("User deleted successfully");
-                    } else {
-                        res.send("error deleting user");
-                    }
-                });
-            } else {
-                res.send("wrong credentials" + err);
-            }
-        }
+    // console.log(idQ);
+
+    postSch.deleteOne({ _id: oid }, function (err, obj) {
+        if (err) throw err;
+        console.log("1 document deleted");
+        res.send("deleted");
     });
-    //  res.send("delete");
 });
 
-//update user details
-app.put('/updateUser/', (req, res) => {
-    const usernameQuery = req.query.username;
-    const passwordQuery = req.query.password;
-    const nameUpdate = req.query.name;
-    const collegeUpdate = req.query.college;
-    const graduationYearUpdate = req.query.graduationYear;
+//update data
+app.post('/editPost', jsonParser, (req, res) => {
+    // const authQuery = req.body.auth;
+    const titleQuery = req.body.title;
+    const descQuery = req.body.desc;
+    console.log(req.body);
+    const idQ = req.body.auth;
+    var oid = new ObjectId(idQ);
+    console.log(req.body);
     let check = true;
-    schema.findOne({ username: usernameQuery }, (err, obj) => {
-        // res.send(obj);
-        if (obj == null) {
-            res.send("User doesnot exist");
-            check = false;
-            // console.log(err);
-            // console.log(obj);
-        } else {
-            if (check && passwordQuery === obj.password) {
-                schema.findOneAndUpdate({ username: usernameQuery }, { $set: { name: nameUpdate, college: collegeUpdate, graduationYear: graduationYearUpdate } }, (err, obj) => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.send("Details updated succesfully");
-                    }
-                })
-            }
-            else {
-                res.send("wrong credentials" + err);
-            }
-        }
+
+    postSch.updateOne({ _id: oid }, { $set: { title: titleQuery, desc: descQuery } }, function (err, obj) {
+        if (err) throw err;
+        console.log("1 document updated");
+        res.send("updated");
     });
-    //  res.send("delete");
 });
 
 app.listen(port, () => {

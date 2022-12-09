@@ -2,25 +2,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
-    username: {
+    email: {
         type: String,
         unique: true,
         index: true,
         require: true,
     },
-    name: {
-        type: String,
-        require: true,
-    },
-    college: {
-        type: String,
-    },
-    graduationYear: {
-        type: Date,
-    },
     password: {
         type: String,
-        require: true,
+        // require: true,
     },
     token: {
         type: String,
